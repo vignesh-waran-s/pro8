@@ -1,0 +1,40 @@
+name: Firewall Services Autograding
+
+
+on:
+
+  push:
+  pull_request:
+
+
+jobs:
+
+  grade:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+    - name: Checkout Repository
+
+      uses: actions/checkout@v4
+
+
+    - name: Install BATS
+
+      run: |
+
+        sudo apt update
+
+        sudo apt install -y bats
+
+
+    - name: Make Script Executable
+
+      run: chmod +x firewall_services.sh
+
+
+    - name: Run Test Cases
+
+      run: bats tests/test_firewall.bats
